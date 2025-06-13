@@ -5,6 +5,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { Search } from "./Search";
 import { CgMenu, CgClose } from "react-icons/cg";
 import { Button } from "./ui/button";
+import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 
 const links = [
   {
@@ -13,7 +14,15 @@ const links = [
   },
   {
     title: "What we do",
-    path: "/what-we-do"
+    path: "/what-we-do",
+    isMenu: true,
+    subMenu: [
+      { title: "Overview", path: "/what-we-do" },
+      { title: "Learning", path: "/what-we-do/learning" },
+      { title: "Incubator", path: "/what-we-do/incubator" },
+      { title: "Research", path: "/what-we-do/research" },
+      { title: "Consulting", path: "/what-we-do/consulting" }
+    ]
   },
   {
     title: "News",
@@ -33,6 +42,7 @@ export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [isSearchClick, setIsSearchClick] = useState<boolean>(false);
+  const [showMenu, setShowMenu] = useState<boolean>(false);
 
   const location = useLocation();
 
@@ -74,21 +84,58 @@ export const Navbar = () => {
           {/* desktop nav */}
           <nav className="hidden md:flex gap-6">
             {links.map((link) => (
-              <NavLink
-                to={link.path}
-                key={link.path}
-                className={({ isActive }) =>
-                  cn(
-                    "relative pb-1 text-accent-black hover:text-primary transition-colors",
-                    "after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300",
-                    isActive
-                      ? "text-primary after:w-full"
-                      : "hover:after:w-full"
-                  )
-                }
-              >
-                {link.title}
-              </NavLink>
+              <div key={link.path} className="relative">
+                <NavLink
+                  to={link.path}
+                  className={({ isActive }) =>
+                    cn(
+                      "relative flex items-center pb-1 text-accent-black hover:text-primary transition-colors",
+                      "after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300",
+                      isActive
+                        ? "text-primary after:w-full"
+                        : "hover:after:w-full"
+                    )
+                  }
+                >
+                  <span>{link.title}</span>
+                  {link.isMenu && (
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setShowMenu(!showMenu);
+                      }}
+                    >
+                      {showMenu ? (
+                        <TiArrowSortedUp className="ml-2" />
+                      ) : (
+                        <TiArrowSortedDown className="ml-2" />
+                      )}
+                    </button>
+                  )}
+                </NavLink>
+
+                {/* Dropdown menu for "What we do" */}
+                {link.isMenu && showMenu && (
+                  <div className="absolute top-12 left-0 mt-2 w-48 bg-white shadow-lg py-1 z-50">
+                    {link.subMenu?.map((subItem) => (
+                      <NavLink
+                        key={subItem.path}
+                        to={subItem.path}
+                        className={({ isActive }) =>
+                          cn(
+                            "block px-4 py-2 text-sm text-accent-black hover:bg-gray-100",
+                            isActive ? "text-primary font-medium" : ""
+                          )
+                        }
+                        onClick={() => setShowMenu(false)}
+                      >
+                        {subItem.title}
+                      </NavLink>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </nav>
         </div>
@@ -121,24 +168,70 @@ export const Navbar = () => {
       <div
         className={cn(
           "fixed top-16 w-full bg-white shadow-lg z-40 overflow-hidden transition-all duration-300",
-          isMobileMenuOpen ? "max-h-96" : "max-h-0"
+          isMobileMenuOpen ? "max-h-100" : "max-h-0"
         )}
       >
         <nav className="flex flex-col p-4 space-y-4">
           {links.map((link) => (
-            <NavLink
-              to={link.path}
-              key={link.path}
-              className={({ isActive }) =>
-                cn(
-                  "py-2 px-3 rounded-md hover:bg-gray-50 transition-colors",
-                  isActive ? "text-primary font-medium" : "text-accent-black"
-                )
-              }
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {link.title}
-            </NavLink>
+            <div key={link.path}>
+              <NavLink
+                to={link.path}
+                className={({ isActive }) =>
+                  cn(
+                    "py-2 px-3 rounded-md hover:bg-gray-50 transition-colors flex justify-between items-center",
+                    isActive ? "text-primary font-medium" : "text-accent-black"
+                  )
+                }
+                onClick={() => {
+                  if (!link.isMenu) {
+                    setIsMobileMenuOpen(false);
+                  }
+                }}
+              >
+                {link.title}
+                {link.isMenu && (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setShowMenu(!showMenu);
+                    }}
+                  >
+                    {showMenu ? (
+                      <TiArrowSortedUp className="ml-2" />
+                    ) : (
+                      <TiArrowSortedDown className="ml-2" />
+                    )}
+                  </button>
+                )}
+              </NavLink>
+
+              {/* Mobile submenu */}
+              {link.isMenu && showMenu && (
+                <div className="pl-4 mt-1 space-y-2">
+                  {link.subMenu?.map((subItem) => (
+                    <NavLink
+                      key={subItem.path}
+                      to={subItem.path}
+                      className={({ isActive }) =>
+                        cn(
+                          "block py-2 px-3 rounded-md hover:bg-gray-50",
+                          isActive
+                            ? "text-primary font-medium"
+                            : "text-accent-black"
+                        )
+                      }
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        setShowMenu(false);
+                      }}
+                    >
+                      {subItem.title}
+                    </NavLink>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </nav>
       </div>
