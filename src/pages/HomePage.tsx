@@ -1,5 +1,5 @@
 import { ExploreCover } from "@/components/ExploreCover";
-import { Footer } from "@/components/footer";
+import { Footerr } from "@/components/Footerr";
 import { HeroSection } from "@/components/HeroSection";
 import { NewsHero } from "@/components/NewsHero";
 import { TrendingNews } from "@/components/TrendingNews";
@@ -16,7 +16,7 @@ export const HomePage: React.FC = () => {
       <NewsHero />
       <TrendingNews />
       <ExploreCover />
-      <Footer />
+      <Footerr />
     </section>
   );
 };

@@ -5,7 +5,7 @@ import { FaYoutube } from "react-icons/fa";
 
 import logo from "@/assets/logo.svg";
 
-export const Footer = () => {
+export const Footerr = () => {
   return (
     <footer className="bg-accent-grey-3 text-white py-12 px-4 md:px-8 lg:px-12">
       <div className="max-w-7xl mx-auto">
