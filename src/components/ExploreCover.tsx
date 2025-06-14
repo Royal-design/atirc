@@ -11,7 +11,7 @@ export const ExploreCover = () => {
         <p className="text-base md:text-lg text-center">
           Unlock Your Future. Innovate, Learn, Lead with ATIRC.
         </p>
-        <Button className="rounded-none text-primary bg-white">
+        <Button className="rounded-none text-primary bg-white hover:bg-white/90">
           <span>Learn More</span>
           <IoIosArrowRoundForward />
         </Button>

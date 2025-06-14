@@ -54,13 +54,14 @@ export const Navbar = () => {
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setIsSearchClick(false);
   }, [location.pathname]);
 
   useEffect(() => {
-    // Close mobile menu when window is resized to desktop size
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         setIsMobileMenuOpen(false);
+        setIsSearchClick(false);
       }
     };
     window.addEventListener("resize", handleResize);
@@ -71,11 +72,17 @@ export const Navbar = () => {
     <>
       <header
         className={cn(
-          "fixed top-0 z-50 w-full bg-white py-4 px-4 md:py-6 md:px-24 flex items-center justify-between",
+          "fixed top-0 z-50 w-full bg-white py-4 px-4 md:py-6 md:px-24 flex items-center",
+          isSearchClick ? "justify-end" : " justify-between",
           isScrolled ? "shadow-sm bg-white/90 backdrop-blur-xl" : ""
         )}
       >
-        <div className="flex items-center md:gap-12">
+        <div
+          className={cn(
+            " items-center md:gap-12",
+            isSearchClick ? "hidden" : "flex"
+          )}
+        >
           {/* logo */}
           <NavLink to="/">
             <img src={logo} alt="Artic-Logo" className="h-8 md:h-10" />
@@ -139,8 +146,12 @@ export const Navbar = () => {
             ))}
           </nav>
         </div>
-
-        <div className="flex items-center gap-2">
+        <div
+          className={cn(
+            "flex justify-end items-center gap-2",
+            isSearchClick && "w-full"
+          )}
+        >
           {/* search */}
           <Search
             isSearchClick={isSearchClick}
@@ -148,19 +159,25 @@ export const Navbar = () => {
             setIsMobileMenuOpen={setIsMobileMenuOpen}
           />
           {/* mobile menu button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => {
-              setIsMobileMenuOpen(!isMobileMenuOpen);
-              setIsSearchClick(false);
-            }}
-            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isMobileMenuOpen}
-          >
-            {isMobileMenuOpen ? <CgClose size={24} /> : <CgMenu size={24} />}
-          </Button>
+          {!isSearchClick && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={() => {
+                setIsMobileMenuOpen(!isMobileMenuOpen);
+                setIsSearchClick(false);
+              }}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileMenuOpen}
+            >
+              {isMobileMenuOpen ? (
+                <CgClose className="size-6" />
+              ) : (
+                <CgMenu className="size-6" />
+              )}
+            </Button>
+          )}
         </div>
       </header>
 

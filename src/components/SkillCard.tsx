@@ -9,7 +9,7 @@ export const SkillCard: React.FC<(typeof skills)[0]> = ({
   title
 }) => {
   return (
-    <Card className="rounded-none border-none shadow-none hover:shadow-md transition-shadow overflow-hidden">
+    <Card className="rounded-none  border-none shadow-none hover:shadow-md transition-shadow overflow-hidden">
       <CardContent className="p-0 flex flex-col h-full">
         {/* Image */}
         <div className="w-full h-48 overflow-hidden">

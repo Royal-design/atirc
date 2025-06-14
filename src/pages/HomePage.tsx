@@ -1,13 +1,18 @@
 import { ExploreCover } from "@/components/ExploreCover";
-import { Footerr } from "@/components/Footerr";
+import { Footer } from "@/components/Footer";
 import { HeroSection } from "@/components/HeroSection";
 import { NewsHero } from "@/components/NewsHero";
 import { TrendingNews } from "@/components/TrendingNews";
 import { WhatWeDo } from "@/components/WhatWeDo";
 import { WhoWeAre } from "@/components/WhoWeAre";
-import React from "react";
+import React, { useEffect } from "react";
 
 export const HomePage: React.FC = () => {
+  useEffect(() => {
+    window.scrollTo({
+      top: 0
+    });
+  }, []);
   return (
     <section className="flex flex-col">
       <HeroSection />
@@ -16,7 +21,7 @@ export const HomePage: React.FC = () => {
       <NewsHero />
       <TrendingNews />
       <ExploreCover />
-      <Footerr />
+      <Footer />
     </section>
   );
 };
