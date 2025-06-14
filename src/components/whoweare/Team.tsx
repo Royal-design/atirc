@@ -28,12 +28,12 @@ const teams = [
   {
     name: "Francis Leon",
     title: "Cofounde, Chairman Executive Director",
-    image: ""
+    image: null
   },
   {
     name: "Francis Leon",
     title: "Cofounde, Chairman Executive Director",
-    image: ""
+    image: null
   }
 ];
 
@@ -47,15 +47,15 @@ export const Team = () => {
         {teams.map((team, id) => (
           <Card
             key={id}
-            className={`p-0 border-none h-full flex flex-col ${
+            className={`p-0 border-none h-full flex flex-col shadow-none hover:shadow-md duration-200 transition-all ${
               team.title === "Director" ? " md:h-[100%]" : " md:h-[90%]"
             }`}
           >
             <CardContent className="p-0 overflow-hidden flex-1">
               <img
-                src={team.image}
+                src={team?.image ?? undefined}
                 alt={team.name}
-                className="w-full object-top h-full duration-200 transition-transform hover:scale-105 object-cover"
+                className="w-full object-top max-md:h-[300px] duration-200 transition-transform hover:scale-105 object-cover"
               />
             </CardContent>
             <CardFooter className="flex flex-col items-center justify-center p-2 mt-auto">

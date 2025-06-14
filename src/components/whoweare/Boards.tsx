@@ -37,7 +37,10 @@ export const Boards = () => {
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-end">
         {data.map((data) => (
-          <Card key={data.name} className={`p-0 gap-0 border-none w-xs `}>
+          <Card
+            key={data.name}
+            className={`p-0 gap-0 border-none max-w-xs w-full max-md:mx-auto `}
+          >
             <CardContent className="overflow-hidden p-0">
               <img
                 src={data.image}

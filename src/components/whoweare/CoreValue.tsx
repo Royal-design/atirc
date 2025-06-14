@@ -52,9 +52,10 @@ export const CoreValue = () => {
         to explore creative solutions that push boundaries and unlock Africa’s
         potential. 
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
-        {data.map((data) => (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ">
+        {data.map((data, id) => (
           <Card
+            key={id}
             className={cn(
               " border-none shadow-none rounded-sm gap-0",
               data.bg ? "bg-primary/20 p-4" : "bg-transparent p-2"

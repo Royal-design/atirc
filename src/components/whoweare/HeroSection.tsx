@@ -1,4 +1,4 @@
-import hero from "@/assets/who-we-are/hero.jpg";
+import hero from "@/assets/who-we-are/hero.webp";
 import BreadCrumb from "../BreadCrumb";
 
 export const HeroSection = () => {
