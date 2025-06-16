@@ -38,6 +38,36 @@ const Contact = lazy(() =>
   }))
 );
 
+const Learning = lazy(() =>
+  import("./pages/Learning").then(({ Learning }) => ({
+    default: Learning
+  }))
+);
+const Research = lazy(() =>
+  import("./pages/Research").then(({ Research }) => ({
+    default: Research
+  }))
+);
+const Incubation = lazy(() =>
+  import("./pages/Incubation").then(({ Incubation }) => ({
+    default: Incubation
+  }))
+);
+const Consulting = lazy(() =>
+  import("./pages/Consulting").then(({ Consulting }) => ({
+    default: Consulting
+  }))
+);
+
+// learning pages
+const LearningTopicDetails = lazy(() =>
+  import("./pages/learning/LearningTopicDetails").then(
+    ({ LearningTopicDetails }) => ({
+      default: LearningTopicDetails
+    })
+  )
+);
+
 const router = createBrowserRouter([
   {
     element: (
@@ -57,7 +87,39 @@ const router = createBrowserRouter([
       },
       {
         path: "/what-we-do",
-        element: <WhatWeDo />
+
+        children: [
+          {
+            index: true,
+            element: <WhatWeDo />
+          },
+          {
+            path: "learning",
+
+            children: [
+              {
+                index: true,
+                element: <Learning />
+              },
+              {
+                path: ":topic",
+                element: <LearningTopicDetails />
+              }
+            ]
+          },
+          {
+            path: "research",
+            element: <Research />
+          },
+          {
+            path: "incubation",
+            element: <Incubation />
+          },
+          {
+            path: "consulting",
+            element: <Consulting />
+          }
+        ]
       },
       {
         path: "/news",

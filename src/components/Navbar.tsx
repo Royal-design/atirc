@@ -19,7 +19,7 @@ const links = [
     subMenu: [
       { title: "Overview", path: "/what-we-do" },
       { title: "Learning", path: "/what-we-do/learning" },
-      { title: "Incubator", path: "/what-we-do/incubator" },
+      { title: "Incubator", path: "/what-we-do/incubation" },
       { title: "Research", path: "/what-we-do/research" },
       { title: "Consulting", path: "/what-we-do/consulting" }
     ]

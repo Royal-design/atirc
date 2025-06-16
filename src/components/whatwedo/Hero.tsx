@@ -3,7 +3,7 @@ import BreadCrumb from "../BreadCrumb";
 
 export const Hero = () => {
   return (
-    <div className="relative w-full h-[500px] md:h-[480px]">
+    <div className="relative w-full h-[500px] lg:h-screen">
       <div className="absolute inset-0">
         <img
           src={hero}

@@ -1,4 +1,4 @@
-import hero from "@/assets/who-we-are/hero.webp";
+import hero from "@/assets/learning/hero.webp";
 import BreadCrumb from "../BreadCrumb";
 
 export const HeroSection = () => {
@@ -15,7 +15,7 @@ export const HeroSection = () => {
       <div className="relative h-full w-full flex flex-col justify-center md:justify-end px-4  md:pb-12 md:px-24">
         <div className="flex flex-col items-center md:items-start">
           <h1 className="text-2xl md:text-4xl text-center md:text-start font-bold text-white mb-2">
-            Who We Are
+            Learning Courses
           </h1>
           <BreadCrumb className="text-accent-grey" />
         </div>

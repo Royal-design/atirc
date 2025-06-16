@@ -1,5 +1,4 @@
 import { ExploreCover } from "@/components/ExploreCover";
-import { Footer } from "@/components/Footer";
 import { Boards } from "@/components/whoweare/Boards";
 import { CoreValue } from "@/components/whoweare/CoreValue";
 import { HeroSection } from "@/components/whoweare/HeroSection";
@@ -23,7 +22,6 @@ export const WhoWeAre: React.FC = () => {
       <CoreValue />
       <Team />
       <ExploreCover />
-      <Footer />
     </div>
   );
 };

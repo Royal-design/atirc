@@ -5,7 +5,7 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 
 export const HeroSection: React.FC = () => {
   return (
-    <div className="relative w-full h-[500px] md:h-screen">
+    <div className="relative w-full h-[500px] md:h-[500px] lg:h-screen">
       <figure className="absolute inset-0">
         <img
           src={banner}
