@@ -5,14 +5,9 @@ import { HeroSection } from "@/components/whoweare/HeroSection";
 import { Innovation } from "@/components/whoweare/Innovation";
 import { Story } from "@/components/whoweare/Story";
 import { Team } from "@/components/whoweare/Team";
-import React, { useEffect } from "react";
+import React from "react";
 
 export const WhoWeAre: React.FC = () => {
-  useEffect(() => {
-    window.scrollTo({
-      top: 0
-    });
-  }, []);
   return (
     <div>
       <HeroSection />

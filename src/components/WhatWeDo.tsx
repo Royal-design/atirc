@@ -2,6 +2,7 @@ import { skills } from "@/data/data";
 import { SkillCard } from "./SkillCard";
 import { Button } from "./ui/button";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 export const WhatWeDo = () => {
   return (
@@ -21,7 +22,9 @@ export const WhatWeDo = () => {
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         {skills.map((skill) => (
-          <SkillCard key={skill.image} {...skill} />
+          <Link key={skill.id} to={skill.path}>
+            <SkillCard {...skill} />
+          </Link>
         ))}
       </div>
       <div className="flex justify-center">
