@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -20,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue
 } from "./ui/select";
+import ResumeDrop from "./ResumeDrop";
 
 type FormData = z.infer<typeof formSchema>;
 
@@ -39,6 +39,15 @@ export const ApplicationForm = () => {
 
   const onSubmit = (values: FormData) => {
     console.log(values);
+
+    const resumeFile = values.uploadResume;
+
+    // ✅ You now have access to the actual File object
+    console.log("Resume file name:", resumeFile.name);
+    console.log("Resume type:", resumeFile.type);
+    console.log("Resume size (bytes):", resumeFile.size);
+
+    form.reset();
   };
   return (
     <Form {...form}>
@@ -82,7 +91,7 @@ export const ApplicationForm = () => {
 
         <FormField
           control={form.control}
-          name="firstname"
+          name="email"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
@@ -150,25 +159,19 @@ export const ApplicationForm = () => {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="firstname"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Upload Resume</FormLabel>
-              <FormControl>
-                <Input
-                  type="file"
-                  placeholder="Email"
-                  {...field}
-                  className="py-5  border border-accent-grey-3 focus:border-accent-grey focus-visible:ring-0"
-                />
-              </FormControl>
-              <FormMessage className="text-primary" />
-            </FormItem>
-          )}
+        <ResumeDrop type="uploadResume" name="Upload Resume" />
+        <ResumeDrop
+          type="uploadApplicationLetter"
+          name="Upload Application Letter"
         />
-        <Button type="submit">Submit</Button>
+        <div className="flex justify-center">
+          <Button
+            type="submit"
+            className="rounded-none text-white hover:bg-primary/90 px-15 py-6"
+          >
+            Submit
+          </Button>
+        </div>
       </form>
     </Form>
   );

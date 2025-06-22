@@ -18,10 +18,10 @@ export const Application = () => {
   return (
     <div className="bg-[#EEEEEE] p-4">
       <div className="w-full flex flex-col md:max-w-4xl mx-auto mt-24 ">
-        <h1 className="text-xl md:text-2xl font-bold text-center my-8">
+        <h1 className="text-lg md:text-2xl font-bold text-center my-4 md:my-8">
           {getHeading()}
         </h1>
-        <div className="bg-white p-4 md:p-8">
+        <div className="bg-white p-8 md:py-12 mb-12">
           <ApplicationForm />
         </div>
       </div>

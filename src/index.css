@@ -14,6 +14,7 @@
   --color-accent-grey: var(--accent-grey);
   --color-accent-grey-border: var(--accent-grey-border);
   --color-accent-grey-3: var(--accent-grey-3);
+  --color-accent-grey-2: var(--accent-grey-2);
 }
 
 :root {
@@ -21,6 +22,7 @@
   --secondary: #a72934;
   --accent-black: #0d0d0d;
   --accent-grey: #8b8b8b;
+  --accent-grey-2: #eeeeee;
   --accent-grey-border: #bababa;
   --accent-grey-3: #bababa;
 }
