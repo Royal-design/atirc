@@ -59,6 +59,11 @@ const Consulting = lazy(() =>
   }))
 );
 
+const Application = lazy(() =>
+  import("./pages/Application").then(({ Application }) => ({
+    default: Application
+  }))
+);
 // learning pages
 const LearningTopicDetails = lazy(() =>
   import("./pages/learning/LearningTopicDetails").then(
@@ -121,6 +126,7 @@ const router = createBrowserRouter([
           }
         ]
       },
+
       {
         path: "/news",
         element: <News />
@@ -132,6 +138,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />
+      },
+      {
+        path: "/application/:id",
+        element: <Application />
       }
     ]
   }

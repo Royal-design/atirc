@@ -3,12 +3,14 @@ import { Button } from "../ui/button";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import intern from "@/assets/career/intern.jpg";
 import job from "@/assets/career/job.jpg";
+import { Link } from "react-router-dom";
 
 type Application = {
   id: number;
   image: string;
   title: string;
   body: string;
+  path: string;
 };
 
 const data: Application[] = [
@@ -16,12 +18,14 @@ const data: Application[] = [
     id: 1,
     image: intern,
     title: "Internship Application",
+    path: "/application/internship",
     body: "Lorem ipsum dolor sit amet consectetur. Diam purus molestie vel semper nisl Lorem ipsum dolor sit amet consectetur."
   },
   {
     id: 2,
     image: job,
     title: "Job Application",
+    path: "/application/job",
     body: "Lorem ipsum dolor sit amet consectetur. Diam purus molestie vel semper nisl Lorem ipsum dolor sit amet consectetur."
   }
 ];
@@ -50,7 +54,7 @@ const CareerCard = (application: Application) => {
           variant="ghost"
           className="bg-transparent hover:bg-transparent text-primary"
         >
-          <span>Apply here</span>
+          <Link to={application.path}>Apply here</Link>
           <IoIosArrowRoundForward />
         </Button>
       </CardFooter>
