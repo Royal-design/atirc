@@ -22,6 +22,9 @@ export const Application = () => {
           {getHeading()}
         </h1>
         <div className="bg-white p-8 md:py-12 mb-12">
+          <h1 className="text-lg md:text-xl text-center mt-4 mb-8 text-accent-black">
+            Fill in your information Appropriately
+          </h1>
           <ApplicationForm />
         </div>
       </div>
