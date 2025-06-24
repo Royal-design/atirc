@@ -6,11 +6,14 @@ export const Application = () => {
   const getHeading = () => {
     switch (id) {
       case "internship":
-        return "Application for Internship";
+        return "Internship Application";
       case "job":
-        return "Application for Job";
       case "incubation":
-        return "Application for Incubation";
+        return "Job Application";
+      case "research":
+        return "Research Application";
+      case "consulting":
+        return "Consulting Application";
       default:
         break;
     }
@@ -25,7 +28,11 @@ export const Application = () => {
           <h1 className="text-lg md:text-xl text-center mt-4 mb-8 text-accent-black">
             Fill in your information Appropriately
           </h1>
-          <ApplicationForm />
+          <ApplicationForm
+            type={
+              id === "job" || id === "internship" ? "regular" : id ?? "regular"
+            }
+          />
         </div>
       </div>
     </div>

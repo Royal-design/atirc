@@ -86,7 +86,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({
         </div>
       )}
       <Link
-        to="#"
+        to="/application/internship"
         className="text-primary flex items-center gap-2 w-fit mt-4 underline hover:bg-primary/10 hover:p-2 duration-200 transition-all"
       >
         <span>Register</span>

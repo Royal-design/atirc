@@ -1,4 +1,4 @@
-import { formSchema } from "@/schema/formSchema";
+import { getFormSchema } from "@/schema/formSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -20,35 +20,99 @@ import {
   SelectValue
 } from "./ui/select";
 import ResumeDrop from "./ResumeDrop";
+import emailjs from "emailjs-com";
+import { useState } from "react";
 
-type FormData = z.infer<typeof formSchema>;
+export const ApplicationForm = ({ type }: { type: string }) => {
+  const [loading, setLoading] = useState<boolean>(false);
 
-export const ApplicationForm = () => {
+  const formSchema = getFormSchema(type);
+
+  const defaultValues: any = {
+    firstname: "",
+    lastname: "",
+    email: "",
+    phonenumber: "",
+    jobposition: undefined
+  };
+
+  if (type === "regular") {
+    defaultValues.uploadResume = undefined;
+    defaultValues.uploadApplicationLetter = undefined;
+  }
+
+  if (type === "research") {
+    defaultValues.uploadResume = undefined;
+    defaultValues.uploadResearchProposalLetter = undefined;
+  }
+
+  if (type === "incubation") {
+    defaultValues.uploadStartupPitchDeck = undefined;
+  }
+
+  type FormData = z.infer<typeof formSchema>;
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      firstname: "",
-      lastname: "",
-      email: "",
-      phonenumber: "",
-      jobposition: undefined,
-      uploadResume: undefined,
-      uploadApplicationLetter: undefined
-    }
+    defaultValues
   });
 
-  const onSubmit = (values: FormData) => {
-    console.log(values);
+  const getTemplateParams = (values: any) => {
+    const baseParams: Record<string, string> = {
+      firstname: values.firstname || "",
+      lastname: values.lastname || "",
+      email: values.email || "",
+      phonenumber: values.phonenumber || "",
+      jobposition: values.jobposition || ""
+    };
 
-    const resumeFile = values.uploadResume;
+    // if (values.uploadResume?.name) {
+    //   baseParams.uploadResume = values.uploadResume.name;
+    // }
 
-    // ✅ You now have access to the actual File object
-    console.log("Resume file name:", resumeFile.name);
-    console.log("Resume type:", resumeFile.type);
-    console.log("Resume size (bytes):", resumeFile.size);
+    // if (values.uploadApplicationLetter?.name) {
+    //   baseParams.uploadApplicationLetter = values.uploadApplicationLetter.name;
+    // }
 
-    form.reset();
+    // if (values.uploadResearchProposalLetter?.name) {
+    //   baseParams.uploadResearchProposalLetter =
+    //     values.uploadResearchProposalLetter.name;
+    // }
+
+    // if (values.uploadStartupPitchDeck?.name) {
+    //   baseParams.uploadStartupPitchDeck = values.uploadStartupPitchDeck.name;
+    // }
+
+    return baseParams;
   };
+
+  const onSubmit = async (values: FormData) => {
+    setLoading(true);
+    const params = getTemplateParams(values);
+
+    const serviceId = import.meta.env.VITE_EMAIL_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAIL_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAIL_PUBLIC_KEY;
+
+    if (!params) {
+      alert("Missing form data.");
+      return;
+    }
+
+    try {
+      await emailjs.send(serviceId, templateId, params, publicKey);
+
+      alert("Application sent successfully!");
+      form.reset();
+      console.log("Email sent:", params);
+    } catch (error) {
+      console.error("Failed to send email:", error);
+      alert("Failed to send application.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -158,18 +222,43 @@ export const ApplicationForm = () => {
             </FormItem>
           )}
         />
+        {type === "regular" && (
+          <>
+            <ResumeDrop type="uploadResume" name="Upload Resume" />
+            <ResumeDrop
+              type="uploadApplicationLetter"
+              name="Upload Application Letter"
+            />
+          </>
+        )}
 
-        <ResumeDrop type="uploadResume" name="Upload Resume" />
-        <ResumeDrop
-          type="uploadApplicationLetter"
-          name="Upload Application Letter"
-        />
+        {type === "incubation" && (
+          <ResumeDrop
+            type="uploadStartupPitchDeck"
+            name="Upload Startup pitch deck"
+          />
+        )}
+
+        {type === "research" && (
+          <>
+            <ResumeDrop type="uploadResume" name="Upload Resume" />
+            <ResumeDrop
+              type="uploadResearchProposalLetter"
+              name="Upload Research Proposal Letter"
+            />
+          </>
+        )}
         <div className="flex justify-center">
           <Button
+            disabled={loading}
             type="submit"
-            className="rounded-none text-white hover:bg-primary/90 px-15 py-6"
+            className={`${
+              loading
+                ? "bg-primary/50 cursor-not-allowed"
+                : " hover:bg-primary/90 "
+            } rounded-none px-15 py-6 text-white`}
           >
-            Submit
+            {loading ? "Submitting..." : "Submit"}
           </Button>
         </div>
       </form>

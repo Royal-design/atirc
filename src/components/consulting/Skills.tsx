@@ -17,7 +17,7 @@ export const Skills = () => {
       </p>
       <div className="grid grid-cols-1 my-8 md:grid-cols-2 gap-8">
         {consulting.map((skill) => (
-          <Link to={`#`}>
+          <Link to="/application/consulting">
             <Card
               key={skill.id}
               className="border-none max-md:max-w-sm max-md:mx-auto md:w-full shadow-none hover:shadow-md duration-200 transition-all p-0 gap-0"

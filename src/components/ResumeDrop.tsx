@@ -50,7 +50,7 @@ const ResumeDrop = ({ type, name }: { type: string; name: string }) => {
                 }`}
             >
               <input {...getInputProps()} className="hidden" />
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-500 text-center">
                 {uploadedType
                   ? uploadedType.name
                   : "Drag file here or click the button below"}

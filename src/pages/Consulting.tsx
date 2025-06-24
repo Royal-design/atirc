@@ -5,8 +5,10 @@ import itcover from "@/assets/consulting/itcover.jpg";
 
 import { Button } from "@/components/ui/button";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 export const Consulting = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <Hero />
@@ -34,6 +36,7 @@ export const Consulting = () => {
           </blockquote>
 
           <Button
+            onClick={() => navigate("/application/consulting")}
             variant="ghost"
             className="bg-transparent px-0 has-[>svg]:px-0 hover:bg-transparent text-primary"
           >
@@ -64,6 +67,7 @@ export const Consulting = () => {
           </blockquote>
 
           <Button
+            onClick={() => navigate("/application/consulting")}
             variant="ghost"
             className="bg-transparent px-0 has-[>svg]:px-0 hover:bg-transparent text-primary"
           >
