@@ -22,9 +22,18 @@ import {
 import ResumeDrop from "./ResumeDrop";
 import emailjs from "emailjs-com";
 import { useState } from "react";
+import { toast } from "sonner";
+import { uploadToCloudinary } from "@/utils/cloudinary";
 
-export const ApplicationForm = ({ type }: { type: string }) => {
+export const ApplicationForm = ({
+  type,
+  heading
+}: {
+  type: string;
+  heading: string;
+}) => {
   const [loading, setLoading] = useState<boolean>(false);
+  const title = heading.charAt(0).toUpperCase() + heading.slice(1);
 
   const formSchema = getFormSchema(type);
 
@@ -50,64 +59,73 @@ export const ApplicationForm = ({ type }: { type: string }) => {
     defaultValues.uploadStartupPitchDeck = undefined;
   }
 
-  type FormData = z.infer<typeof formSchema>;
+  // Extend FormData to include possible file fields for all types
+  type FormData = z.infer<typeof formSchema> & {
+    uploadResume?: File;
+    uploadApplicationLetter?: File;
+    uploadResearchProposalLetter?: File;
+    uploadStartupPitchDeck?: File;
+  };
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues
   });
 
-  const getTemplateParams = (values: any) => {
-    const baseParams: Record<string, string> = {
-      firstname: values.firstname || "",
-      lastname: values.lastname || "",
-      email: values.email || "",
-      phonenumber: values.phonenumber || "",
-      jobposition: values.jobposition || ""
-    };
-
-    // if (values.uploadResume?.name) {
-    //   baseParams.uploadResume = values.uploadResume.name;
-    // }
-
-    // if (values.uploadApplicationLetter?.name) {
-    //   baseParams.uploadApplicationLetter = values.uploadApplicationLetter.name;
-    // }
-
-    // if (values.uploadResearchProposalLetter?.name) {
-    //   baseParams.uploadResearchProposalLetter =
-    //     values.uploadResearchProposalLetter.name;
-    // }
-
-    // if (values.uploadStartupPitchDeck?.name) {
-    //   baseParams.uploadStartupPitchDeck = values.uploadStartupPitchDeck.name;
-    // }
-
-    return baseParams;
-  };
-
   const onSubmit = async (values: FormData) => {
     setLoading(true);
-    const params = getTemplateParams(values);
 
     const serviceId = import.meta.env.VITE_EMAIL_SERVICE_ID;
     const templateId = import.meta.env.VITE_EMAIL_TEMPLATE_ID;
     const publicKey = import.meta.env.VITE_EMAIL_PUBLIC_KEY;
 
-    if (!params) {
-      alert("Missing form data.");
-      return;
-    }
-
     try {
-      await emailjs.send(serviceId, templateId, params, publicKey);
+      let resumeUrl = "";
+      let applicationLetterUrl = "";
+      let researchProposalLetterUrl = "";
+      let startupPitchDeckUrl = "";
 
-      alert("Application sent successfully!");
+      if (values.uploadResume) {
+        resumeUrl = await uploadToCloudinary(values.uploadResume);
+      }
+      if (values.uploadApplicationLetter) {
+        applicationLetterUrl = await uploadToCloudinary(
+          values.uploadApplicationLetter
+        );
+      }
+      if (values.uploadResearchProposalLetter) {
+        researchProposalLetterUrl = await uploadToCloudinary(
+          values.uploadResearchProposalLetter
+        );
+      }
+      if (values.uploadStartupPitchDeck) {
+        startupPitchDeckUrl = await uploadToCloudinary(
+          values.uploadStartupPitchDeck
+        );
+      }
+
+      const params = {
+        firstname: values.firstname,
+        lastname: values.lastname,
+        email: values.email,
+        phonenumber: values.phonenumber,
+        jobposition: values.jobposition,
+        resumeUrl: resumeUrl || null,
+        applicationLetterUrl: applicationLetterUrl || null,
+        researchProposalLetterUrl: researchProposalLetterUrl || null,
+        startupPitchDeckUrl: startupPitchDeckUrl || null,
+        title: title || "Job Application"
+      };
+
+      await emailjs.send(serviceId, templateId, params, publicKey);
+      console.log("Email sent successfully:", params);
+
+      toast.success("Application sent successfully!");
       form.reset();
       console.log("Email sent:", params);
     } catch (error) {
       console.error("Failed to send email:", error);
-      alert("Failed to send application.");
+      toast.error("Failed to send application.");
     } finally {
       setLoading(false);
     }

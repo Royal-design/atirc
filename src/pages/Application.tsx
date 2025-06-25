@@ -32,6 +32,7 @@ export const Application = () => {
             type={
               id === "job" || id === "internship" ? "regular" : id ?? "regular"
             }
+            heading={id ?? ""}
           />
         </div>
       </div>

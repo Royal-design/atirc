@@ -1,18 +1,18 @@
 import { Hero } from "@/components/consulting/Hero";
-import { Skills } from "@/components/consulting/Skills";
 import sdcover from "@/assets/consulting/sdcover.webp";
 import itcover from "@/assets/consulting/itcover.jpg";
 
 import { Button } from "@/components/ui/button";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { Content } from "@/components/consulting/Content";
 
 export const Consulting = () => {
   const navigate = useNavigate();
   return (
     <div>
       <Hero />
-      <Skills />
+      <Content />
       <div className="px-4 md:px-24 w-full py-8">
         <img
           src={sdcover}

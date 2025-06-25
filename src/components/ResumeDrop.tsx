@@ -42,7 +42,7 @@ const ResumeDrop = ({ type, name }: { type: string; name: string }) => {
           <FormControl>
             <div
               {...getRootProps()}
-              className={`flex items-center justify-center flex-col border-2 border-dashed rounded-md p-6 cursor-pointer
+              className={`flex items-center min-w-xs  justify-center flex-col border-2 border-dashed rounded-md p-6 cursor-pointer
                 ${
                   isDragActive
                     ? "border-primary bg-blue-50"
@@ -50,7 +50,7 @@ const ResumeDrop = ({ type, name }: { type: string; name: string }) => {
                 }`}
             >
               <input {...getInputProps()} className="hidden" />
-              <p className="text-sm text-gray-500 text-center">
+              <p className="text-sm  text-gray-500 text-center max-w-full line-clamp-2">
                 {uploadedType
                   ? uploadedType.name
                   : "Drag file here or click the button below"}
