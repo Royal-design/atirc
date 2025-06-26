@@ -20,7 +20,7 @@ export const skills = [
   },
   {
     id: 3,
-    title: "Incubator",
+    title: "Incubation",
     body: "The incubation component of ATIRC is designed to support startups and entrepreneurs in transforming innovative ideas into viable businesses. The center provides a nurturing environment that fosters growth and development.",
     image: incubator,
     path: "/what-we-do/incubation"

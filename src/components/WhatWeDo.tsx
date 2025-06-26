@@ -2,9 +2,10 @@ import { skills } from "@/data/data";
 import { SkillCard } from "./SkillCard";
 import { Button } from "./ui/button";
 import { IoIosArrowRoundForward } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const WhatWeDo = () => {
+  const navigate = useNavigate();
   return (
     <section className="px-4 md:px-24 py-4 md:my-12">
       <h1 className="text-xl md:text-2xl text-secondary text-center mb-4 font-bold uppercase">
@@ -28,7 +29,10 @@ export const WhatWeDo = () => {
         ))}
       </div>
       <div className="flex justify-center">
-        <Button className="rounded-none text-white">
+        <Button
+          onClick={() => navigate("/what-we-do")}
+          className="rounded-none text-white"
+        >
           <span>Learn More</span>
           <IoIosArrowRoundForward />
         </Button>

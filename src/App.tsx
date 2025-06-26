@@ -1,8 +1,10 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Spinner } from "./components/Spinner";
 import { RootLayout } from "./layouts/RootLayout";
 import { ErrorPage } from "./pages/ErrorPage";
+import { useAppDispatch } from "./redux/store";
+import { fetchBlogs } from "./redux/slices/blogSlice";
 
 const HomePage = lazy(() =>
   import("./pages/HomePage").then(({ HomePage }) => ({
@@ -148,6 +150,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchBlogs());
+  }, [dispatch]);
   return <RouterProvider router={router} />;
 }
 

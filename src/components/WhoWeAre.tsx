@@ -1,8 +1,10 @@
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { Button } from "./ui/button";
 import whoweare from "@/assets/whoweare.jpg";
+import { useNavigate } from "react-router-dom";
 
 export const WhoWeAre = () => {
+  const navigate = useNavigate();
   return (
     <div className="px-4 md:px-24 mt-8 md:mt-12 flex flex-col md:flex-row gap-12">
       {/* image */}
@@ -36,7 +38,10 @@ export const WhoWeAre = () => {
           </p>
         </div>
         <div className="flex justify-center md:justify-start mb-4">
-          <Button className="rounded-none text-white">
+          <Button
+            onClick={() => navigate("/who-we-are")}
+            className="rounded-none text-white"
+          >
             <span>Learn More</span>
             <IoIosArrowRoundForward />
           </Button>

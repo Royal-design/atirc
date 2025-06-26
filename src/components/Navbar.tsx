@@ -72,7 +72,7 @@ export const Navbar = () => {
     <>
       <header
         className={cn(
-          "fixed top-0 z-50 w-full bg-white py-4 px-4 md:py-6 md:px-24 flex items-center",
+          "fixed top-0 z-100 w-full bg-white py-4 px-4 md:py-6 md:px-24 flex items-center",
           isSearchClick ? "justify-end" : " justify-between",
           isScrolled ? "shadow-sm bg-white/90 backdrop-blur-xl" : ""
         )}

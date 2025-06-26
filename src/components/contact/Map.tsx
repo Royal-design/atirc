@@ -1,19 +1,24 @@
-import map from "@/assets/contact/map.png";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import type { LatLngExpression } from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 export const Map = () => {
+  const position: LatLngExpression = [7.1010567, 3.3270426];
   return (
-    <div className="py-4 px-4 md:py-12 md:px-24">
-      <h1 className="text-accent-black text-lg md:text-xl  uppercase font-bold text-center mb-4">
+    <div className="map-container max-w-6xl mx-auto h-[500px] my-12 mb-25 px-4 z-10">
+      <h1 className="text-accent-black text-xl md:text-2xl font-bold text-center my-4">
         Find us on Google map
       </h1>
-      <p className="text-accent-grey text-base text-center mb-8 max-w-3xl mx-auto">
-        Lorem ipsum dolor sit amet consectetur. Diam purus molestie vel semper
-        nisl tristique mattis. Lectus id etiam quis quis nisl quis vel.
-      </p>
-
-      <div className=" w-full md:max-w-4xl mx-auto">
-        <img src={map} alt="Map" className="h-full w-full object-cover" />
-      </div>
+      <MapContainer center={position} zoom={14} className="h-full w-full mb-12">
+        <TileLayer
+          className=""
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={position}>
+          <Popup>MAPOLY, Abeokuta</Popup>
+        </Marker>
+      </MapContainer>
     </div>
   );
 };

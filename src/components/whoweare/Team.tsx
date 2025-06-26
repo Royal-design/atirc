@@ -2,6 +2,8 @@ import teama from "@/assets/who-we-are/teama.jpg";
 import teamb from "@/assets/who-we-are/teamb.jpg";
 import teamc from "@/assets/who-we-are/teamc.jpg";
 import teamd from "@/assets/who-we-are/teamd.jpg";
+import teame from "@/assets/who-we-are/teame.webp";
+
 import { Card, CardContent, CardFooter } from "../ui/card";
 
 const teams = [
@@ -26,14 +28,9 @@ const teams = [
     image: teamd
   },
   {
-    name: "Francis Leon",
-    title: "Cofounde, Chairman Executive Director",
-    image: null
-  },
-  {
-    name: "Francis Leon",
-    title: "Cofounde, Chairman Executive Director",
-    image: null
+    name: "Olowookere Emmanuel",
+    title: "Frontend Developer",
+    image: teame
   }
 ];
 
@@ -43,7 +40,7 @@ export const Team = () => {
       <h1 className="text-2xl md:text-3xl font-bold text-center mb-8">
         Meet Our Team
       </h1>
-      <div className="grid grid-cols-1 gap-4 md:items-end md:grid-cols-6">
+      <div className="grid grid-cols-1 gap-4 md:items-end md:grid-cols-5">
         {teams.map((team, id) => (
           <Card
             key={id}
@@ -55,7 +52,7 @@ export const Team = () => {
               <img
                 src={team?.image ?? undefined}
                 alt={team.name}
-                className="w-full object-top max-md:h-[300px] duration-200 transition-transform hover:scale-105 object-cover"
+                className="w-full object-top h-full duration-200 transition-transform hover:scale-105 object-cover"
               />
             </CardContent>
             <CardFooter className="flex flex-col items-center justify-center p-2 mt-auto">

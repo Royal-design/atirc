@@ -125,16 +125,8 @@ export const Footer = () => {
             <h2 className="text-lg font-semibold mb-4 text-accent-black">
               Contact
             </h2>
-            <p className="text-accent-black text-[8px] max-w-[70%]">
-              It's also a new year because it is ATRC. Many established local
-              from your Ministry you have established about our programs,
-              partnerships, or organizations, further to reach out. Our team is
-              here to support your small private market innovation, which
-              forward its connectivity and collaboratively with your team!
-            </p>
-
-            <p className="text-accent-black mb-4">Contact @ATIRC.com</p>
-            <p className="text-accent-black">+234 700 001 000</p>
+            <p className="text-accent-black mb-4">info.atirc.org.ng </p>
+            <p className="text-accent-black">+234 904 598 3176</p>
           </div>
         </div>
       </div>

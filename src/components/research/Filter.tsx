@@ -5,6 +5,8 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
+import { applyFilters, setFilters } from "@/redux/slices/blogSlice";
+import { useAppDispatch } from "@/redux/store";
 
 type Option = {
   value: string;
@@ -14,16 +16,18 @@ type Option = {
 type SelectFilterProps = {
   placeholder: string;
   options: Option[];
+  onChange?: (value: string) => void;
   className?: string;
 };
 
 const SelectFilter = ({
   placeholder,
   options,
+  onChange,
   className
 }: SelectFilterProps) => {
   return (
-    <Select>
+    <Select onValueChange={onChange}>
       <SelectTrigger
         className={className || "w-[280px] border-accent-grey-3 text-xs"}
       >
@@ -46,7 +50,6 @@ const SelectFilter = ({
   );
 };
 
-// Type options
 const TYPE_OPTIONS: Option[] = [
   { value: "article", label: "Article" },
   { value: "video", label: "Video" },
@@ -77,13 +80,69 @@ const DATE_OPTIONS: Option[] = [
 ];
 
 export function AllTypes() {
-  return <SelectFilter placeholder="All Types" options={TYPE_OPTIONS} />;
+  const dispatch = useAppDispatch();
+  return (
+    <SelectFilter
+      placeholder="All Types"
+      options={TYPE_OPTIONS}
+      onChange={(value) => {
+        dispatch(setFilters({ type: value }));
+        dispatch(applyFilters());
+      }}
+    />
+  );
 }
 
 export function FilterTopics() {
-  return <SelectFilter placeholder="All Topics" options={TOPIC_OPTIONS} />;
+  const dispatch = useAppDispatch();
+  return (
+    <SelectFilter
+      placeholder="All Topics"
+      options={TOPIC_OPTIONS}
+      onChange={(value) => {
+        dispatch(setFilters({ topic: value }));
+        dispatch(applyFilters());
+      }}
+    />
+  );
 }
 
 export function FilterDates() {
-  return <SelectFilter placeholder="All Dates" options={DATE_OPTIONS} />;
+  const dispatch = useAppDispatch();
+  return (
+    <SelectFilter
+      placeholder="All Dates"
+      options={DATE_OPTIONS}
+      onChange={(value) => {
+        const now = new Date();
+        let fromDate: string | undefined;
+        switch (value) {
+          case "today":
+            fromDate = new Date(now.setHours(0, 0, 0, 0)).toISOString();
+            break;
+          case "week":
+            fromDate = new Date(now.setDate(now.getDate() - 7)).toISOString();
+            break;
+          case "month":
+            fromDate = new Date(now.setMonth(now.getMonth() - 1)).toISOString();
+            break;
+          case "year":
+            fromDate = new Date(
+              now.setFullYear(now.getFullYear() - 1)
+            ).toISOString();
+            break;
+          case "last-year":
+            fromDate = new Date(
+              now.setFullYear(now.getFullYear() - 2)
+            ).toISOString();
+            break;
+          case "older":
+            fromDate = "1900-01-01";
+            break;
+        }
+        dispatch(setFilters({ fromDate }));
+        dispatch(applyFilters());
+      }}
+    />
+  );
 }

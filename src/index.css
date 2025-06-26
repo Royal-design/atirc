@@ -68,3 +68,9 @@
     transform: rotate(360deg);
   }
 }
+.leaflet-container {
+  z-index: 1;
+}
+.leaflet-control-attribution {
+  display: none;
+}

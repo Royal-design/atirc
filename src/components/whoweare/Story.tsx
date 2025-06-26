@@ -7,7 +7,7 @@ export const Story = () => {
         <h1 className="text-2xl md:text-3xl font-bold mb-4 md:mb-8 md:mt-12 text-center md:text-start">
           Our Story
         </h1>
-        <p className="text-sm leading-[150%]">
+        <p className="text-sm leading-[150%] text-justify">
           At ATIRC, we believe that Africa’s greatest asset is its youth. With
           limitless potential and untapped talent, the next generation of tech
           innovators, leaders, and entrepreneurs is ready to emerge. Yet, the
