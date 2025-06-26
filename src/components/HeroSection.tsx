@@ -2,8 +2,10 @@ import React from "react";
 import banner from "@/assets/banner.jpg";
 import { Button } from "./ui/button";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 export const HeroSection: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <div className="relative w-full h-[500px] md:h-[500px] lg:h-screen">
       <figure className="absolute inset-0">
@@ -28,7 +30,10 @@ export const HeroSection: React.FC = () => {
             collaboration with industry partners, ATIRC is creating a foundation
             for lasting impact in Africa’s technological landscape.
           </p>
-          <Button className="rounded-none">
+          <Button
+            onClick={() => navigate("/who-we-are")}
+            className="rounded-none cursor-pointer"
+          >
             <span>Learn More</span>
             <IoIosArrowRoundForward />
           </Button>
